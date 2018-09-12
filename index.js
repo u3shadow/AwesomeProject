@@ -74,6 +74,26 @@ export default class Practice extends Component{
     handleChange(name){
     this.setState({listName:name},()=>{this.getListData()});
     }
+    listPress(itemName){
+        alert(itemName);
+    }
+    componentDidMount(){
+        return fetch('https://facebook.github.io/react-native/movies.json')
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                this.setState({
+                    isLoading: false,
+                    data: responseJson.movies,
+                }, function(){
+
+                });
+
+            })
+            .catch((error) =>{
+                console.error(error);
+            });
+    }
     render(){
         return (
             <View style={{alignItems:'center'}}>
@@ -95,7 +115,7 @@ export default class Practice extends Component{
                 <ListName name={this.state.listName}/>
                 <FlatList
                     data={this.state.data}
-                    renderItem={({item}) => <Text >{item.key}</Text>}
+                    renderItem={({item}) => <Text onPress={()=>this.listPress(item.title)}>{item.title}, {item.releaseYear}</Text>}
                 />
             </View>
         )
