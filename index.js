@@ -2,7 +2,7 @@
 
 import {AppRegistry} from 'react-native';
 import React, { Component } from 'react';
-import { Text, View,ScrollView,FlatList } from 'react-native';
+import { Text, View,ScrollView,FlatList,Button } from 'react-native';
 import {name as appName} from './app.json';
 class TabItem extends Component{
     press(){
@@ -21,7 +21,7 @@ class ListName extends Component{
         );
     }
 }
-export default class Practice extends Component{
+ class Practice extends Component{
     constructor(props) {
         super(props);
         this.state={
@@ -121,4 +121,45 @@ export default class Practice extends Component{
         )
     }
 }
-AppRegistry.registerComponent(appName, () => Practice);
+class HomeScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Welcome',
+    };
+    render() {
+        const { navigate } = this.props.navigation;
+        return (
+            <Button
+                title="Go to Jane's profile"
+                onPress={() =>
+                    navigate('Profile', { name: 'Jane' })
+                }
+            />
+        );
+    }
+}
+class ProfileScreen  extends React.Component {
+    static navigationOptions = {
+        title: 'profile',
+    };
+    render() {
+        const { navigate } = this.props.navigation;
+        return (
+            <Button
+                title="Go to Jane's profile"
+                onPress={() =>
+                    navigate('Profile', { name: 'Jane' })
+                }
+            />
+        );
+    }
+}
+import {
+    createStackNavigator,
+} from 'react-navigation';
+
+const App = createStackNavigator({
+    Home: { screen: HomeScreen },
+    Profile: { screen: ProfileScreen },
+});
+export default App;
+AppRegistry.registerComponent(appName, () => App);
